@@ -1,0 +1,691 @@
+<!doctype html>
+<!--
+  Shaun Burdick Consulting — single-page landing
+  Token system: Shaun Burdick terminal aesthetic
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Shaun Burdick · Engineering Leadership Consulting</title>
+    <meta
+      name="description"
+      content="Twenty years shipping software. Software architecture, backend systems, agile delivery — I help teams ship better."
+    />
+    <meta
+      property="og:title"
+      content="Shaun Burdick · Engineering Leadership Consulting"
+    />
+    <meta
+      property="og:description"
+      content="Twenty years shipping software. Software architecture, backend systems, agile delivery — I help teams ship better."
+    />
+    <meta property="og:url" content="https://burdick.dev/" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Shaun Burdick · Engineering Leadership Consulting"
+    />
+    <meta
+      name="twitter:description"
+      content="Twenty years shipping software. Software architecture, backend systems, agile delivery — I help teams ship better."
+    />
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/terminal.css" />
+    <style>
+      body {
+        background: var(--bg);
+        color: var(--fg);
+        font-family: var(--font-body);
+        font-size: var(--fs-body);
+        line-height: 1.6;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* ─── layout primitives ─────────────────────────────────────────── */
+      .container {
+        max-width: var(--container);
+        margin-inline: auto;
+        padding-inline: var(--gutter);
+      }
+      .section {
+        padding-block: clamp(48px, 8vw, var(--gap-xl));
+      }
+      .section + .section {
+        border-top: 1px solid var(--border);
+      }
+      .stack {
+        display: flex;
+        flex-direction: column;
+      }
+      .stack > * + * {
+        margin-top: var(--gap-md);
+      }
+      .row {
+        display: flex;
+        align-items: center;
+        gap: var(--gap-md);
+      }
+      .row-between {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--gap-md);
+      }
+      .grid-2 {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--gap-lg);
+      }
+      .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--gap-lg);
+      }
+      .grid-2-1 {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: var(--gap-xl);
+        align-items: start;
+      }
+      @media (max-width: 800px) {
+        .grid-2,
+        .grid-3,
+        .grid-2-1 {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* ─── type ──────────────────────────────────────────────────────── */
+      .h1,
+      h1 {
+        font-family: var(--font-display);
+        font-size: var(--fs-h1);
+        line-height: 1.15;
+        letter-spacing: -0.01em;
+        font-weight: 600;
+        color: var(--fg);
+      }
+      .h2,
+      h2 {
+        font-family: var(--font-display);
+        font-size: var(--fs-h2);
+        line-height: 1.2;
+        letter-spacing: -0.005em;
+        font-weight: 500;
+        color: var(--fg);
+      }
+      .h3,
+      h3 {
+        font-size: var(--fs-h3);
+        font-weight: 600;
+        line-height: 1.3;
+        margin: 0;
+      }
+      .lead {
+        font-size: var(--fs-lead);
+        line-height: 1.65;
+        color: var(--muted);
+        max-width: 60ch;
+        margin: 0;
+      }
+      .eyebrow {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin: 0 0 var(--gap-md);
+      }
+      .meta {
+        font-family: var(--font-mono);
+        font-size: var(--fs-meta);
+        color: var(--muted);
+      }
+
+      /* ─── chrome: topbar + footer ───────────────────────────────────── */
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: var(--bg);
+        border-bottom: 1px solid var(--border);
+      }
+      .topbar-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-block: 12px;
+      }
+      .topbar .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-family: var(--font-mono);
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--fg);
+      }
+      .topbar .logo .prompt {
+        font-weight: 700;
+      }
+      .topbar nav {
+        display: flex;
+        gap: var(--gap-lg);
+      }
+      .topbar nav a {
+        font-family: var(--font-mono);
+        font-size: 13px;
+        color: var(--muted);
+        transition: color 0.15s;
+      }
+      .topbar nav a:hover {
+        color: var(--accent);
+      }
+
+      .pagefoot {
+        padding-block: var(--gap-xl);
+        color: var(--muted);
+        font-size: 12px;
+        border-top: 1px solid var(--border);
+        font-family: var(--font-mono);
+      }
+      .pagefoot .row-between {
+        flex-wrap: wrap;
+        gap: var(--gap-md);
+      }
+
+      /* ─── buttons ───────────────────────────────────────────────────── */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 18px;
+        border-radius: var(--radius);
+        border: 1px solid transparent;
+        font-family: var(--font-mono);
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        transition:
+          background 0.15s ease,
+          border-color 0.15s ease;
+      }
+      .btn-primary {
+        background: var(--accent);
+        color: var(--bg);
+        border-color: var(--accent);
+      }
+      .btn-primary:hover {
+        background: var(--accent-dim);
+        border-color: var(--accent-dim);
+      }
+      .btn-secondary {
+        background: transparent;
+        color: var(--fg);
+        border-color: var(--border);
+      }
+      .btn-secondary:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+      .btn-arrow::after {
+        content: "→";
+        transition: transform 0.15s ease;
+      }
+      .btn-arrow:hover::after {
+        transform: translateX(3px);
+      }
+
+      /* ─── card / surface ────────────────────────────────────────────── */
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 24px;
+      }
+      .card-flat {
+        background: transparent;
+        border: 0;
+        padding: 0;
+      }
+
+      /* ─── feature cell ──────────────────────────────────────────────── */
+      .feature .feature-mark {
+        width: 44px;
+        height: 44px;
+        display: grid;
+        place-items: center;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        font-family: var(--font-mono);
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--accent);
+        margin-bottom: var(--gap-md);
+        line-height: 1;
+      }
+      .feature h3 {
+        margin-bottom: 6px;
+        color: var(--fg);
+        font-family: var(--font-mono);
+        font-size: 15px;
+        font-weight: 600;
+      }
+      .feature p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.6;
+      }
+
+      /* ─── stat ──────────────────────────────────────────────────────── */
+      .stat .stat-num {
+        font-family: var(--font-mono);
+        font-size: clamp(48px, 7vw, 72px);
+        line-height: 0.95;
+        letter-spacing: -0.03em;
+        color: var(--accent);
+        font-weight: 600;
+      }
+      .stat .stat-label {
+        color: var(--muted);
+        font-size: 13px;
+        margin-top: 8px;
+        max-width: 24ch;
+        line-height: 1.5;
+      }
+
+      /* ─── hero variants ─────────────────────────────────────────────── */
+      .hero {
+        padding-block: clamp(80px, 12vw, 140px);
+      }
+      .hero h1 {
+        margin-bottom: var(--gap-md);
+      }
+      .hero .lead {
+        margin-bottom: var(--gap-lg);
+      }
+      .hero-cta {
+        display: inline-flex;
+        gap: var(--gap-sm);
+        flex-wrap: wrap;
+      }
+
+      /* typewriter fade-in for hero text */
+      @keyframes typeIn {
+        from {
+          opacity: 0;
+          transform: translateY(6px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .type-in {
+        animation: typeIn 0.4s ease both;
+      }
+      .type-in-1 {
+        animation-delay: 0.1s;
+      }
+      .type-in-2 {
+        animation-delay: 0.25s;
+      }
+      .type-in-3 {
+        animation-delay: 0.4s;
+      }
+      .type-in-4 {
+        animation-delay: 0.55s;
+      }
+
+      /* ─── terminal typewriter: fade-in about card output lines ──────── */
+      .terminal-prompt ~ div .terminal-line {
+        opacity: 0;
+        animation: terminalFadeIn 0.3s ease forwards;
+      }
+      .terminal-prompt ~ div .terminal-line:nth-child(1) {
+        animation-delay: 0.6s;
+      }
+      .terminal-prompt ~ div .terminal-line:nth-child(2) {
+        animation-delay: 0.8s;
+      }
+      .terminal-prompt ~ div .terminal-line:nth-child(3) {
+        animation-delay: 1s;
+      }
+      .terminal-prompt ~ div .terminal-line:nth-child(4) {
+        animation-delay: 1.2s;
+      }
+      .terminal-prompt ~ div .terminal-line:nth-child(5) {
+        animation-delay: 1.4s;
+      }
+
+      @keyframes terminalFadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(4px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .terminal-prompt ~ div .terminal-line {
+          opacity: 1;
+          animation: none;
+        }
+      }
+
+      /* ─── split / bio section ───────────────────────────────────────── */
+      .bio-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .bio-list li {
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+        font-family: var(--font-mono);
+        font-size: 13px;
+        line-height: 1.8;
+        color: var(--fg);
+      }
+      .bio-list li::before {
+        content: ">";
+        color: var(--accent);
+        font-weight: 700;
+      }
+
+      /* ─── contact info block ────────────────────────────────────────── */
+      .contact-info {
+        font-family: var(--font-mono);
+        font-size: 13px;
+        line-height: 1.8;
+        color: var(--muted);
+      }
+      .contact-info span {
+        color: var(--fg);
+      }
+      .contact-info a {
+        color: var(--accent);
+      }
+      .contact-info a:hover {
+        text-decoration: underline;
+      }
+
+      /* ─── CTA strip ─────────────────────────────────────────────────── */
+      .cta-strip h2 {
+        margin-bottom: var(--gap-sm);
+      }
+      .cta-strip .lead {
+        margin: 12px 0 32px;
+      }
+
+      /* ─── responsive ────────────────────────────────────────────────── */
+      @media (max-width: 800px) {
+        :root {
+          --container: 100%;
+          --gutter: 20px;
+        }
+        .topbar nav {
+          display: none;
+        }
+        .hero {
+          padding-block: 56px;
+        }
+        .hero h1 {
+          font-size: clamp(28px, 8vw, 40px);
+        }
+      }
+    </style>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Shaun Burdick",
+        "jobTitle": "Engineering Leadership Consultant",
+        "url": "https://burdick.dev/",
+        "sameAs": [
+          "https://github.com/shaunburdick",
+          "https://www.linkedin.com/in/shaunburdick/"
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <a href="#content" class="skip-link">Skip to main content</a>
+
+    <!-- ═══════════════ TOPBAR ═══════════════ -->
+    <header class="topbar" data-od-id="topbar">
+      <div class="container topbar-inner">
+        <span class="logo">
+          <span class="prompt">></span>
+          <span>shaun_burdick_consulting</span>
+        </span>
+        <nav aria-label="Main">
+          <a href="#services">~/services</a>
+          <a href="#about">~/about</a>
+          <a href="#contact">~/contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- ═══════════════ MAIN ═══════════════ -->
+    <main id="content" tabindex="-1">
+      <!-- ─── HERO ─────────────────────────────────── -->
+      <section
+        class="section hero"
+        data-od-id="hero"
+        aria-labelledby="hero-heading"
+      >
+        <div class="container">
+          <p class="eyebrow type-in type-in-1">
+            $ ENGINEERING_LEADERSHIP · CONSULTING
+          </p>
+          <h1 id="hero-heading" class="type-in type-in-2">
+            Twenty years shipping<br />software. I help teams<br />ship better.
+          </h1>
+          <p class="lead type-in type-in-3">
+            Software architecture, backend systems, agile delivery — I partner
+            with engineering teams and founders to move faster, build cleaner
+            systems, and lead with clarity and confidence.
+          </p>
+          <div class="hero-cta type-in type-in-4">
+            <a href="#contact" class="btn btn-primary">Book a call</a>
+            <a href="#services" class="btn btn-secondary">View services</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── SERVICES ─────────────────────────────── -->
+      <section
+        class="section"
+        data-od-id="services"
+        id="services"
+        aria-labelledby="services-heading"
+      >
+        <div class="container stack" style="gap: 48px">
+          <div>
+            <p class="eyebrow">$ CONSULTING · SERVICES</p>
+            <h2 id="services-heading">
+              Three areas where I can make an immediate difference in your
+              engineering org.
+            </h2>
+          </div>
+          <div class="grid-3">
+            <div class="feature card-flat">
+              <div class="feature-mark" aria-hidden="true">&lt;/&gt;</div>
+              <h3 class="h3">Software Architecture &amp; API Design</h3>
+              <p>
+                Scalable system design, clean API contracts, service
+                decomposition, and migration strategy. I help teams choose the
+                right abstractions that grow with them.
+              </p>
+            </div>
+            <div class="feature card-flat">
+              <div class="feature-mark" aria-hidden="true">&gt;_</div>
+              <h3 class="h3">Agile Team Management &amp; Delivery</h3>
+              <p>
+                Effective agile delivery focused on shipping quality software.
+                I help engineering managers build team rhythms that produce
+                consistent, measurable results.
+              </p>
+            </div>
+            <div class="feature card-flat">
+              <div class="feature-mark" aria-hidden="true">|=|</div>
+              <h3 class="h3">Large-Scale Data Collection &amp; Pipelines</h3>
+              <p>
+                Designing and operating data systems at scale — ingestion,
+                processing, storage, and retrieval. Purpose-built for growing
+                teams ready to evolve their data infrastructure.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── ABOUT / APPROACH ─────────────────────── -->
+      <section
+        class="section"
+        data-od-id="about"
+        id="about"
+        aria-labelledby="about-heading"
+      >
+        <div class="container grid-2-1">
+          <div class="stack" style="gap: var(--gap-md)">
+            <p class="eyebrow">$ ABOUT</p>
+            <h2 id="about-heading">Engineer. Leader. Builder.</h2>
+            <p style="color: var(--muted); line-height: 1.7; font-size: 14px">
+              I've spent twenty-plus years writing software and leading teams
+              that build the kind of systems most companies depend on —
+              large-scale data pipelines, distributed APIs, and platforms
+              engineered for reliability and scale.
+            </p>
+            <p style="color: var(--muted); line-height: 1.7; font-size: 14px">
+              I work hands-on with your team. Together we look at your code,
+              architecture, and delivery process — then I help you implement
+              improvements that stick. Short engagements, lasting value.
+            </p>
+            <p style="color: var(--muted); line-height: 1.7; font-size: 14px">
+              I also partner directly with founders and leaders who need
+              seasoned technical guidance — helping with architecture decisions,
+              team building, and engineering strategy without the overhead of a
+              full-time hire.
+            </p>
+          </div>
+          <div
+            class="card"
+            style="
+              font-family: var(--font-mono);
+              font-size: 12px;
+              line-height: 1.7;
+              color: var(--muted);
+            "
+          >
+            <div
+              class="terminal-line terminal-prompt"
+              style="color: var(--accent)"
+            >
+              <span class="prompt"> </span>shaun_burdick@consulting:~$ cat
+              about.txt
+            </div>
+            <div style="margin-top: 12px">
+              <div class="terminal-line">
+                <span class="prompt">></span>20+ yrs · engineering leadership
+              </div>
+              <div class="terminal-line">
+                <span class="prompt">></span>focus: architecture, backend, data
+              </div>
+              <div class="terminal-line">
+                <span class="prompt">></span>agile · team building · delivery
+              </div>
+              <div class="terminal-line">
+                <span class="prompt">></span>short engagements · real outcomes
+              </div>
+              <div class="terminal-line" style="margin-top: 12px">
+                <span class="prompt">></span><span class="cursor"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── CTA ──────────────────────────────────── -->
+      <section
+        class="section cta-strip"
+        data-od-id="contact"
+        id="contact"
+        aria-labelledby="contact-heading"
+      >
+        <div class="container">
+          <p class="eyebrow">$ CONTACT</p>
+          <h2 id="contact-heading">Let's ship something better.</h2>
+          <p class="lead" style="margin: 12px 0 32px; max-width: 44ch">
+            Whether you need architecture guidance, a fresh approach to
+            delivery, or an experienced engineering leader to strengthen your
+            team — let's talk.
+          </p>
+          <div
+            class="stack"
+            style="gap: var(--gap-sm); align-items: flex-start"
+          >
+            <a href="/calendar" class="btn btn-primary btn-arrow"
+              >Book a call</a
+            >
+            <div class="contact-info" style="margin-top: 8px">
+              <a
+                href="#"
+                id="email-link"
+                data-user="636f6e73756c74696e67"
+                data-domain="6275726469636b2e646576"
+                >email me</a
+              >
+              ·
+              <a href="https://github.com/shaunburdick">github/shaunburdick</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ═══════════════ FOOTER ═══════════════ -->
+    <footer class="pagefoot" data-od-id="footer">
+      <div class="container row-between">
+        <span>© Shaun Burdick Consulting</span>
+        <span class="meta">>_ engineering leadership, delivered</span>
+      </div>
+    </footer>
+
+    <!-- ─── terminal enhancements ─── -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        /* ── decode email from hex parts ── */
+        (function () {
+          const el = document.getElementById("email-link");
+          if (!el) return;
+          const user = el.getAttribute("data-user");
+          const domain = el.getAttribute("data-domain");
+          if (!user || !domain) return;
+          const hexToStr = (h) =>
+            h.replace(/([a-fA-F0-9]{2})/g, (_, c) =>
+              String.fromCharCode(parseInt(c, 16))
+            );
+          const email = hexToStr(user) + "@" + hexToStr(domain);
+          el.href = "mailto:" + email;
+          el.textContent = email;
+        })();
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,21 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+*.sublime-*
+
+# Environment
+.env
+.env.local
+
+# Build output (if any in the future)
+dist/
+build/
+_site/
+out/
