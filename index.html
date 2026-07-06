@@ -65,9 +65,7 @@
       .stack {
         display: flex;
         flex-direction: column;
-      }
-      .stack > * + * {
-        margin-top: var(--gap-md);
+        gap: var(--gap-md);
       }
       .row {
         display: flex;
@@ -105,7 +103,6 @@
       }
 
       /* ─── type ──────────────────────────────────────────────────────── */
-      .h1,
       h1 {
         font-family: var(--font-display);
         font-size: var(--fs-h1);
@@ -114,7 +111,6 @@
         font-weight: 600;
         color: var(--fg);
       }
-      .h2,
       h2 {
         font-family: var(--font-display);
         font-size: var(--fs-h2);
@@ -123,7 +119,6 @@
         font-weight: 500;
         color: var(--fg);
       }
-      .h3,
       h3 {
         font-size: var(--fs-h3);
         font-weight: 600;
@@ -177,9 +172,12 @@
       .topbar .logo .prompt {
         font-weight: 700;
       }
-      .topbar nav {
+      .topbar nav ul {
         display: flex;
         gap: var(--gap-lg);
+        list-style: none;
+        padding: 0;
+        margin: 0;
       }
       .topbar nav a {
         font-family: var(--font-mono);
@@ -384,6 +382,32 @@
           opacity: 1;
           animation: none;
         }
+        .type-in {
+          animation: none;
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      /* ─── body text ──────────────────────────────────────────────────── */
+      .body-text {
+        color: var(--muted);
+        line-height: 1.7;
+        font-size: 14px;
+      }
+
+      /* ─── terminal card ─────────────────────────────────────────────── */
+      .terminal-card {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        line-height: 1.7;
+        color: var(--muted);
+      }
+      .terminal-card .terminal-prompt {
+        color: var(--accent);
+      }
+      .terminal-card .output-group {
+        margin-top: 12px;
       }
 
       /* ─── split / bio section ───────────────────────────────────────── */
@@ -474,9 +498,11 @@
           <span>shaun_burdick_consulting</span>
         </span>
         <nav aria-label="Main">
-          <a href="#services">~/services</a>
-          <a href="#about">~/about</a>
-          <a href="#contact">~/contact</a>
+          <ul>
+            <li><a href="#services">~/services</a></li>
+            <li><a href="#about">~/about</a></li>
+            <li><a href="#contact">~/contact</a></li>
+          </ul>
         </nav>
       </div>
     </header>
@@ -563,21 +589,21 @@
         aria-labelledby="about-heading"
       >
         <div class="container grid-2-1">
-          <div class="stack" style="gap: var(--gap-md)">
+          <div class="stack">
             <p class="eyebrow">$ ABOUT</p>
             <h2 id="about-heading">Engineer. Leader. Builder.</h2>
-            <p style="color: var(--muted); line-height: 1.7; font-size: 14px">
+            <p class="body-text">
               I've spent twenty-plus years writing software and leading teams
               that build the kind of systems most companies depend on —
               large-scale data pipelines, distributed APIs, and platforms
               engineered for reliability and scale.
             </p>
-            <p style="color: var(--muted); line-height: 1.7; font-size: 14px">
+            <p class="body-text">
               I work hands-on with your team. Together we look at your code,
               architecture, and delivery process — then I help you implement
               improvements that stick. Short engagements, lasting value.
             </p>
-            <p style="color: var(--muted); line-height: 1.7; font-size: 14px">
+            <p class="body-text">
               I also partner directly with founders and leaders who need
               seasoned technical guidance — helping with architecture decisions,
               team building, and engineering strategy without the overhead of a
@@ -585,22 +611,15 @@
             </p>
           </div>
           <div
-            class="card"
-            style="
-              font-family: var(--font-mono);
-              font-size: 12px;
-              line-height: 1.7;
-              color: var(--muted);
-            "
+            class="card terminal-card"
           >
             <div
               class="terminal-line terminal-prompt"
-              style="color: var(--accent)"
             >
               <span class="prompt"> </span>shaun_burdick@consulting:~$ cat
               approach.txt
             </div>
-            <div style="margin-top: 12px">
+            <div class="output-group">
               <div class="terminal-line">
                 <span class="prompt">></span>embedded with your team, not above
                 it
