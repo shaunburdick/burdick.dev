@@ -19,3 +19,8 @@ dist/
 build/
 _site/
 out/
+
+# Spec-kit tooling
+.opencode/
+.specify/
+specs/
