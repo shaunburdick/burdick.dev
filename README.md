@@ -1,6 +1,6 @@
 # burdick.dev
 
-Personal consulting site for [Shaun Burdick](https://burdick.dev) — engineering leadership, software architecture, and agile delivery.
+Domain landing page for [Shaun Burdick](https://burdick.dev) — wayfinding to personal site and engineering leadership consulting.
 
 ## Tech
 
@@ -23,17 +23,19 @@ Open `http://localhost:8000` in a browser. No build step needed.
 ## Project structure
 
 ```
-├── index.html           # Main landing page
-├── 404.html             # Custom error page
-├── calendar.html        # Redirects to zcal.co/shaunburdick
-├── CNAME                # Custom domain: burdick.dev
+├── index.html               # Domain landing page (wayfinding)
+├── consulting/
+│   └── index.html           # Engineering leadership consulting page
+├── 404.html                 # Custom error page
+├── calendar.html            # Redirects to zcal.co/shaunburdick
+├── CNAME                    # Custom domain: burdick.dev
 ├── robots.txt
 ├── sitemap.xml
 ├── assets/
-│   ├── terminal.css     # Shared design tokens & styles
-│   └── favicon.svg      # Terminal-prompt favicon
+│   ├── terminal.css         # Shared design tokens & styles
+│   └── favicon.svg          # Terminal-prompt favicon
 └── .github/workflows/
-    └── deploy.yml       # Pages deployment
+    └── deploy.yml           # Pages deployment
 ```
 
 ## License
